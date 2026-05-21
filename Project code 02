@@ -29,10 +29,15 @@ else:
     crop_img = crop_img[100:300, 200:500]
 
     # 이미지 출력
+    print("원본 이미지")
     cv2_imshow(original)
+    print("Resize 640*480")
     cv2_imshow(resize_640_480)
+    print("Resize 1024*768")
     cv2_imshow(resize_1024_768)
+    print("Scale fx=0.3 fy=0.7")
     cv2_imshow(scale_img)
+    print("Crop Image")
     cv2_imshow(crop_img)
 
     # 33ms 단위로 키 입력 대기

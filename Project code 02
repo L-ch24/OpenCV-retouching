@@ -1,0 +1,41 @@
+# 라이브러리 불러오기
+import cv2
+from google.colab.patches import cv2_imshow
+
+# 이미지 읽기
+image = cv2.imread("/content/apple.jpg")
+
+# 이미지 출력
+if image is None:
+    print("이미지를 찾을 수 없습니다.")
+else:
+    # 원본 이미지를 deep copy
+    original = image.copy()
+
+    # 1. 이미지 크기 변환: 640 x 480
+    resize_640_480 = original.copy()
+    resize_640_480 = cv2.resize(resize_640_480, (640, 480))
+
+    # 2. 이미지 크기 변환: 1024 x 768
+    resize_1024_768 = original.copy()
+    resize_1024_768 = cv2.resize(resize_1024_768, (1024, 768))
+
+    # 3. 비율에 맞게 상대 크기 변환
+    scale_img = original.copy()
+    scale_img = cv2.resize(scale_img, None, fx=0.3, fy=0.7)
+
+    # 4. 특정 부분만 잘라서 가져오기
+    crop_img = original.copy()
+    crop_img = crop_img[100:300, 200:500]
+
+    # 이미지 출력
+    cv2_imshow(original)
+    cv2_imshow(resize_640_480)
+    cv2_imshow(resize_1024_768)
+    cv2_imshow(scale_img)
+    cv2_imshow(crop_img)
+
+    # 33ms 단위로 키 입력 대기
+    cv2.waitKey(33)
+
+    cv2.destroyAllWindows()

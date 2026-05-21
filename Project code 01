@@ -1,0 +1,57 @@
+# OpenCV 설치
+!pip install opencv-python
+
+# 라이브러리 불러오기
+import cv2
+from google.colab.patches import cv2_imshow
+
+# 이미지 읽기
+image = cv2.imread("/content/apple.jpg")
+
+# 이미지 출력
+if image is None:
+    print("이미지를 찾을 수 없습니다.")
+else:
+    print("원본 이미지")
+    cv2_imshow(image)
+
+    # =========================
+    # 상하 반전
+    # flipCode = 0
+    # =========================
+    flip_vertical = cv2.flip(image, 0)
+
+    print("상하 반전 이미지")
+    cv2_imshow(flip_vertical)
+
+    # =========================
+    # 좌우 반전
+    # flipCode = 1
+    # =========================
+    flip_horizontal = cv2.flip(image, 1)
+
+    print("좌우 반전 이미지")
+    cv2_imshow(flip_horizontal)
+
+    # =========================
+    # 시계 방향 90도 회전
+    # =========================
+    rotate_90 = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+
+    print("시계 방향 90도 회전 이미지")
+    cv2_imshow(rotate_90)
+
+    # =========================
+    # 180도 회전
+    # =========================
+    rotate_180 = cv2.rotate(image, cv2.ROTATE_180)
+
+    print("180도 회전 이미지")
+    cv2_imshow(rotate_180)
+
+
+# 33ms 대기
+cv2.waitKey(33)
+
+# 창 닫기
+cv2.destroyAllWindows()

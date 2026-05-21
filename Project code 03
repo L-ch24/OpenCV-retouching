@@ -1,0 +1,32 @@
+# 라이브러리 불러오기
+import cv2
+from google.colab.patches import cv2_imshow
+
+# 이미지 읽기
+image = cv2.imread("/content/apple.jpg")
+
+# 이미지 출력
+if image is None:
+    print("이미지를 찾을 수 없습니다.")
+else:
+    # 원본 이미지를 deep copy
+    original = image.copy()
+
+     # 1. RGB(BGR) → GRAY 변환
+    gray_img = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
+
+    # 2. 이미지 역상(Invert)
+    invert_img = cv2.bitwise_not(original)
+
+    # 이미지 출력
+    print("원본 이미지")
+    cv2_imshow(original)
+    print("Gray Image")
+    cv2_imshow(gray_img)
+    print("Invert Image")
+    cv2_imshow(invert_img)
+
+    # 33ms 단위로 키 입력 대기
+    cv2.waitKey(33)
+
+    cv2.destroyAllWindows()

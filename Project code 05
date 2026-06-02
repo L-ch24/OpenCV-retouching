@@ -1,1 +1,36 @@
+!pip install opencv-python
 
+import cv2
+from google.colab import files
+from google.colab.patches import cv2_imshow
+
+# 이미지 읽기
+img = cv2.imread("/content/apple.jpg")
+
+if img is None:
+    print("이미지를 불러올 수 없습니다.")
+else:
+    # 원본 이미지 복사
+    original = img.copy()
+
+    # BGR → HSV 변환
+    hsv = cv2.cvtColor(original, cv2.COLOR_BGR2HSV)
+
+    # H, S, V 채널 분리
+    H, S, V = cv2.split(hsv)
+
+    # 결과 출력
+    print("원본 이미지")
+    cv2_imshow(original)
+
+    print("HSV 이미지")
+    cv2_imshow(hsv)
+
+    print("H (Hue) 성분")
+    cv2_imshow(H)
+
+    print("S (Saturation) 성분")
+    cv2_imshow(S)
+
+    print("V (Value) 성분")
+    cv2_imshow(V)

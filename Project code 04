@@ -1,12 +1,10 @@
-!pip install opencv-python
-
 import cv2
 import numpy as np
 from google.colab import files
 from google.colab.patches import cv2_imshow
 
 # 이미지 읽기
-img = cv2.imread("/content/apple.jpg")
+img = cv2.imread(filename)
 
 if img is None:
     print("이미지를 불러올 수 없습니다.")

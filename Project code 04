@@ -1,1 +1,106 @@
+!pip install opencv-python
 
+import cv2
+import numpy as np
+from google.colab import files
+from google.colab.patches import cv2_imshow
+
+# 이미지 읽기
+img = cv2.imread("/content/apple.jpg")
+
+if img is None:
+    print("이미지를 불러올 수 없습니다.")
+else:
+    # 원본 이미지 Deep Copy
+    original = img.copy()
+
+    # -----------------------------
+    # 1. 그레이스케일 변환
+    # -----------------------------
+    gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
+
+    # -----------------------------
+    # 2. 이진화
+    # -----------------------------
+    _, binary = cv2.threshold(
+        gray,
+        127,
+        255,
+        cv2.THRESH_BINARY
+    )
+
+    # -----------------------------
+    # 3. Sobel Edge (원본 이미지 사용)
+    # -----------------------------
+    sobel_x = cv2.Sobel(
+        original,
+        cv2.CV_64F,
+        1,
+        0,
+        ksize=3
+    )
+
+    sobel_y = cv2.Sobel(
+        original,
+        cv2.CV_64F,
+        0,
+        1,
+        ksize=3
+    )
+
+    sobel = cv2.magnitude(sobel_x, sobel_y)
+    sobel = np.uint8(np.clip(sobel, 0, 255))
+
+    # -----------------------------
+    # 4. Laplacian Edge (원본 이미지 사용)
+    # -----------------------------
+    laplacian = cv2.Laplacian(
+        original,
+        cv2.CV_64F
+    )
+
+    laplacian = np.uint8(
+        np.clip(np.abs(laplacian), 0, 255)
+    )
+
+    # -----------------------------
+    # 5. Canny Edge (원본 이미지 사용)
+    # -----------------------------
+    canny = cv2.Canny(
+        original,
+        100,
+        200
+    )
+
+    # -----------------------------
+    # 6. Gaussian Blur (원본 이미지 사용)
+    # -----------------------------
+    blur = cv2.GaussianBlur(
+        original,
+        (9, 9),
+        0
+    )
+
+    # -----------------------------
+    # 결과 출력
+    # -----------------------------
+    print("원본 이미지")
+    cv2_imshow(original)
+
+    print("그레이스케일 이미지")
+    cv2_imshow(gray)
+
+    print("이진화 이미지")
+    cv2_imshow(binary)
+
+    print("Sobel Edge")
+    cv2_imshow(sobel)
+
+    print("Laplacian Edge")
+    cv2_imshow(laplacian)
+
+    print("Canny Edge")
+    cv2_imshow(canny)
+
+    print("Gaussian Blur")
+    cv2_imshow(blur)
